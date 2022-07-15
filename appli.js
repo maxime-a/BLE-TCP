@@ -2,7 +2,7 @@
  * @ Author: Maxime Aymonin
  * @ Create Time: 2022-07-14 12:15:56
  * @ Modified by: Maxime Aymonin
- * @ Modified time: 2022-07-15 11:31:49
+ * @ Modified time: 2022-07-15 11:39:15
  * @ Description: A web interface to SmarTrap Serial Port Profile
  */
 
@@ -54,6 +54,7 @@ async function connect()
 
     document.getElementById("connect-btn").innerHTML = "Connected";
 
+    document.getElementById('text').innerHTML  +=   readData();
     console.log(readData());
 
     } catch(error) {
