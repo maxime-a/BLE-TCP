@@ -2,7 +2,7 @@
  * @ Author: Maxime Aymonin
  * @ Create Time: 2022-07-14 12:15:56
  * @ Modified by: Maxime Aymonin
- * @ Modified time: 2022-07-15 10:03:52
+ * @ Modified time: 2022-07-15 10:07:54
  * @ Description: A web interface to SmarTrap Serial Port Profile
  */
 
@@ -22,7 +22,7 @@ async function connect()
 
     let options = {};
     options.acceptAllDevices = true;
-    options.filters = filters;
+    //options.filters = filters;
 
     try {
     console.log('Requesting any Bluetooth Device...');
