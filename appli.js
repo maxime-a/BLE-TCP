@@ -2,7 +2,7 @@
  * @ Author: Maxime Aymonin
  * @ Create Time: 2022-07-14 12:15:56
  * @ Modified by: Maxime Aymonin
- * @ Modified time: 2022-07-15 11:13:38
+ * @ Modified time: 2022-07-15 11:31:49
  * @ Description: A web interface to SmarTrap Serial Port Profile
  */
 
@@ -37,17 +37,14 @@ async function connect()
         console.log('> Service: ' + service.uuid);
         const characteristics = await service.getCharacteristics();
 
-        msg = service.uuid;
-
-        document.getElementById('text').innerHTML  +=   msg;
-
         characteristics.forEach(characteristic => {
         console.log('>> Characteristic: ' + characteristic.uuid + ' ' +
             getSupportedProperties(characteristic));
-        
+
             switch(characteristic.uuid){
                 /* SPP Data */
                 case "00000501-0000-1000-8000-00805f9b34fb":
+                    characteristicData=characteristic;
                     characteristic.startNotifications();
                     characteristic.oncharacteristicvaluechanged = handleData;
                     break;
@@ -56,6 +53,8 @@ async function connect()
     }
 
     document.getElementById("connect-btn").innerHTML = "Connected";
+
+    console.log(readData());
 
     } catch(error) {
     console.log('Argh! ' + error);
@@ -113,4 +112,13 @@ function handleData(event) {
     // update UI
     document.getElementById('text').innerHTML  +=   msg;
 
+}
+
+/**
+ * Read and return the actuators caracteristic
+ */
+ async function readData(){
+    var value = await characteristicData.readValue();
+    let dataWord = new Uint8Array(value.buffer);
+    return dataWord;
 }
