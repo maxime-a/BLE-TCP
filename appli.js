@@ -2,7 +2,7 @@
  * @ Author: Maxime Aymonin
  * @ Create Time: 2022-07-14 12:15:56
  * @ Modified by: Maxime Aymonin
- * @ Modified time: 2022-07-14 16:00:45
+ * @ Modified time: 2022-07-15 10:03:52
  * @ Description: A web interface to SmarTrap Serial Port Profile
  */
 
@@ -16,13 +16,17 @@ async function connect()
     document.getElementById("connect-btn").innerHTML = "Connecting";
     console.log("connecting...");
 
-    let servicesNeeded = [SPP];
+    let filters = [];
+
+    filters.push({services: [SPP]});
+
+    let options = {};
+    options.acceptAllDevices = true;
+    options.filters = filters;
 
     try {
     console.log('Requesting any Bluetooth Device...');
-    myDevice = await navigator.bluetooth.requestDevice({
-        acceptAllDevices : true,
-        optionalServices : servicesNeeded});
+    myDevice = await navigator.bluetooth.requestDevice(options);
     myDevice.addEventListener('gattserverdisconnected', disconnect);
     console.log('Connecting to GATT Server...');
     const server = await myDevice.gatt.connect();
