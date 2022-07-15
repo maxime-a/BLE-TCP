@@ -2,7 +2,7 @@
  * @ Author: Maxime Aymonin
  * @ Create Time: 2022-07-14 12:15:56
  * @ Modified by: Maxime Aymonin
- * @ Modified time: 2022-07-15 11:03:06
+ * @ Modified time: 2022-07-15 11:13:38
  * @ Description: A web interface to SmarTrap Serial Port Profile
  */
 
@@ -36,6 +36,10 @@ async function connect()
     for (const service of services) {
         console.log('> Service: ' + service.uuid);
         const characteristics = await service.getCharacteristics();
+
+        msg = service.uuid;
+
+        document.getElementById('text').innerHTML  +=   msg;
 
         characteristics.forEach(characteristic => {
         console.log('>> Characteristic: ' + characteristic.uuid + ' ' +
